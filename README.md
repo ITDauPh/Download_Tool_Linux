@@ -1,8 +1,11 @@
 # Download_Tool_Linux
-install pyqt5 
 
-install validators 
+sudo apt install python3-pip
+pip install pyqt5 
+pip install validators 
+pip install pytube
+sudo apt install gstreamer1.0-libav ubuntu-restricted-extras (phát video)
 
-cài thêm k-lite-codec để có thể play video: (Server1)
 
-https://www.codecguide.com/download_k-lite_codec_pack_basic.htm
+
+
