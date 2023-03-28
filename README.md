@@ -1,4 +1,7 @@
 # Download_Tool_Linux
+sudo snap install --classic code (cài VS code)
+
+sudo apt-get install python
 
 sudo apt install python3-pip
 
