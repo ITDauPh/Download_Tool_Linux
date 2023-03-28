@@ -206,7 +206,7 @@ class Ui_MainWindow(object):
         
     def btn_filechooser_click(self):
         self.urlfilename = QFileDialog().getOpenFileName(None,"Select text file which store multiple videos URL","","Text files (*.txt)",options = QFileDialog.Options())
-        if(self.urlfilename):
+        if(self.urlfilename[0]):
             self.btn_download_multiple.setEnabled(True)
             self.btn_download_multiple.setStyleSheet("background-color: rgb(170, 255, 255);")
             msg = QMessageBox()
@@ -221,17 +221,21 @@ class Ui_MainWindow(object):
     
     def btn_downloadmultiple_click(self):
         count = 100
-        if(self.urlfilename):
+        if(self.urlfilename[0]):
             fname = QFileDialog.getSaveFileName(None, "Save videos",
                                                "", "All Files (*);;All Files (*)",options = QFileDialog.Options())
             if(fname[0]):
                 urlfile = open(self.urlfilename[0])
                 text = urlfile.readlines()
                 for line in text:
-                    downloadThread = ThreadModule.thread("DownloadMultipleVDThread", count, line, fname, "multiple")
-                    downloadThread.start()
-                    count+=1
+                    if(validators.url(line)):
+                        downloadThread = ThreadModule.thread("DownloadMultipleVDThread", count, line, fname, "multiple")
+                        downloadThread.start()
+                        count+=1
                 urlfile.close()
+                urlfilename = ()
+                self.btn_download_multiple.setEnabled(False)
+                self.btn_download_multiple.setStyleSheet("background-color: rgb(242, 94, 53);")
 
     #MEDIA PLAYER
     def openvideo(self):
